@@ -1,6 +1,6 @@
 // инициализация вк
 VK.init(function() { 
-     console.log('Init successful');
+     console.log('Init successful 1');
 	$('#set-permission').on('click', function(e) {
     		e.preventDefault();
 		SetPerms();
