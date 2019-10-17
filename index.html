@@ -62,6 +62,7 @@
 		}
 		
 		VK.init(function() {
+			
 			setVKCallback('onAppWidgetPreviewFail', 'warning');
 			setVKCallback('onAppWidgetPreviewCancel', 'info');
 			setVKCallback('onAppWidgetPreviewSuccess', 'success');
@@ -73,6 +74,7 @@
 			$('#button-install').on('click', function(){
 				VK.callMethod("showAppWidgetPreviewBox", "text", "return {};");
 			});
+			console.log("init")
 
 		}, function() {
 			console.error('VK init error', arguments);
