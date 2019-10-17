@@ -7,6 +7,7 @@ VK.init(function() {
 
 // функция дня изменения размера окна в зависимости от содержимого страницы
 function autosize(width) {
+     console.log('Смена размера окна');
     //Проверяем элемент body на наличие.
     if (!document.getElementById('body')) {
         alert('error');
@@ -26,10 +27,12 @@ function autosize(width) {
     }
 }
 
+console.log('Перед jquery');
 $(document).ready( function(){
     //Вызываем функцию регулировки высоты каждые пол секунды.
     setInterval('autosize(607)', 500); 
-  
+
+  console.log('Перед кнопками');  
   $('#set-permission').on('click', function(e) {
     e.preventDefault();
     console.log('Запрос прав доступа');
