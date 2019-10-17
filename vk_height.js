@@ -1,6 +1,6 @@
 // инициализация вк
 VK.init(function() { 
-     console.log('Init successful 1');
+     console.log('Init successful 2');
 	$('#set-permission').on('click', function(e) {
     		e.preventDefault();
 		SetPerms();
@@ -15,7 +15,14 @@ VK.init(function() {
 
 function SetPerms(){
 	console.log('Запрос прав доступа');
-	VK.callMethod("showGroupSettingsBox", 0);	
+	VK.callMethod("showGroupSettingsBox", 0);
+	 VK.addCallback('onGroupSettingsChanged', function(settings, grp_token){ 
+	   addServer(grp_token); 
+	 });
+
+	 VK.addCallback('onGroupSettingsCancel', function(){ 
+	   alert("Отказ в доступе"); 
+	 });	
 };
 
 function Install(){
