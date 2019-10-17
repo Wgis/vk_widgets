@@ -1,10 +1,35 @@
 // инициализация вк
 VK.init(function() { 
      console.log('Init successful');
+	$('#set-permission').on('click', function(e) {
+    		e.preventDefault();
+		SetPerms();
+	});
+	$('#set-widget').on('click', function(e) {
+		e.preventDefault();	
+		Install();
+	});
   }, function() { 
      console.log('Error init');
 }, '5.73'); 
 
+function SetPerms(){
+	console.log('Запрос прав доступа');
+	VK.callMethod("showGroupSettingsBox", 0);	
+};
+
+function Install(){
+	console.log('Запрос установки виджета');
+
+	VK.callMethod('showAppWidgetPreviewBox', 'text', 'return {' + 
+	 '"title": "Цитата",' + 
+	 '"text": "Текст цитаты"' + 
+	'};');
+
+	VK.addCallback('onAppWidgetPreviewSuccess', function f(data){ 
+	 alert("Виджет успешно добавлен"); 
+	});
+};
 // функция дня изменения размера окна в зависимости от содержимого страницы
 function autosize(width) {
     //Проверяем элемент body на наличие.
@@ -30,37 +55,4 @@ console.log('Перед jquery');
 $(document).ready( function(){
     //Вызываем функцию регулировки высоты каждые пол секунды.
     setInterval('autosize(607)', 500); 
-
-  console.log('Перед кнопками');  
-  $('#set-permission').on('click', function(e) {
-    e.preventDefault();
-    console.log('Запрос прав доступа');
-    // запрос прав доступа для дальнейшего обновления данных посредством крона
-    // после запрса создается ключ, который можно посмотреть на странице управления сообществом
-    // его и нунжно будет применить для обновления данных в виджете через сервер
-    // дока прав тут https://vk.com/dev/permissions
-    // дока метода тут https://vk.com/dev/clientapi?f=3.+showGroupSettingsBox
-    //VK.callMethod("showGroupSettingsBox", 0);
-    VK.callMethod("showSettingsBox", 0);
-  });
-  
-  $('#set-widget').on('click', function(e) {
-    e.preventDefault();
-    
-    console.log('Запрос установки виджета');
-    // запрос установки виджета
-    // типы виджетов можно глянуть тут https://vk.com/dev/objects/appWidget
-    // как подключить виджет можно глянуть тут https://vk.com/dev/apps_widgets
-    VK.callMethod('showAppWidgetPreviewBox', 'text', 'return {' + 
-      '"title": "Цитата",' + 
-      '"text": "Текст цитаты"' + 
-    '};');
-    
-    // типы событий, генерируемых после выполнения запроса на установку виджета можно глянуть тут https://vk.com/dev/apps_widgets
-    // работа с событиями вк https://vk.com/dev/Javascript_SDK?f=4.1.+VK.addCallback
-    VK.addCallback('onAppWidgetPreviewSuccess', function f(data){ 
-      alert("Виджет успешно добавлен"); 
-    });
-  });	
-  
 });
