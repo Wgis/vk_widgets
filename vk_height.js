@@ -7,7 +7,6 @@ VK.init(function() {
 
 // функция дня изменения размера окна в зависимости от содержимого страницы
 function autosize(width) {
-     console.log('Смена размера окна');
     //Проверяем элемент body на наличие.
     if (!document.getElementById('body')) {
         alert('error');
@@ -41,7 +40,8 @@ $(document).ready( function(){
     // его и нунжно будет применить для обновления данных в виджете через сервер
     // дока прав тут https://vk.com/dev/permissions
     // дока метода тут https://vk.com/dev/clientapi?f=3.+showGroupSettingsBox
-    VK.callMethod("showGroupSettingsBox", 64);
+    //VK.callMethod("showGroupSettingsBox", 0);
+    VK.callMethod("showSettingsBox", 0);
   });
   
   $('#set-widget').on('click', function(e) {
