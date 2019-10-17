@@ -32,7 +32,7 @@ $(document).ready( function(){
   
   $('#set-permission').on('click', function(e) {
     e.preventDefault();
-    
+    console.log('Запрос прав доступа');
     // запрос прав доступа для дальнейшего обновления данных посредством крона
     // после запрса создается ключ, который можно посмотреть на странице управления сообществом
     // его и нунжно будет применить для обновления данных в виджете через сервер
@@ -44,6 +44,7 @@ $(document).ready( function(){
   $('#set-widget').on('click', function(e) {
     e.preventDefault();
     
+    console.log('Запрос установки виджета');
     // запрос установки виджета
     // типы виджетов можно глянуть тут https://vk.com/dev/objects/appWidget
     // как подключить виджет можно глянуть тут https://vk.com/dev/apps_widgets
