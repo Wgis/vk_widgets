@@ -68,11 +68,11 @@
 			setVKCallback('onAppWidgetPreviewSuccess', 'success');
 
 			$('#button-perm').on('click', function(){
-				VK.callMethod("showGroupSettingsBox", 64);
+				VK.callMethod("VKWebAppGetCommunityToken", 64);
 			});
 			
 			$('#button-install').on('click', function(){
-				VK.callMethod("showAppWidgetPreviewBox", "text", "return {};");
+				VK.callMethod("VKWebAppShowCommunityWidgetPreviewBox", "text", "return {};");
 			});
 			console.log("init")
 
