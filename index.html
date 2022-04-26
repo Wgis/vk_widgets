@@ -1,93 +1,25 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru">
 <head>
-    <meta charset="utf-8">
-    <title>VimeNotify Widget</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <!-- Подключаем jquery -->
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" defer></script>
+    <!-- Подключаем VK -->
+    <script src="https://vk.com/js/api/xd_connection.js?2"  type="text/javascript" defer></script>	
+  
+    <!-- Подключаем скрипт регулировки высоты -->
+    <script src="/vk_height.js" defer></script>
+  
 </head>
-
-<body>
-	<div class="container-fluid">
-		<div class="row">
-			<div class="col-md-12">
-				<h4><a href="https://vk.com/vimenotify">VimeNotify Widget</a></h4>
-				<div id="widget-notify"></div>
-				Ручная выдача прав ключа виджета:<br>
-				Если Вы всё же не доверились создателю всея творения, ничего страшного, создателю нужен только токен для управления виджетом.<br><br>
-				[!] Перед выполнением действий Вам нужно установить это приложение в вашу группу<br><br>
-				
-				<div class="form-group">
-					1) Нажмите на КРАСНУЮ кнопку "Добавить приложение" в открйвшейся ссылке выберите группу для установки.<br>
-					<a target="_blank" href="https://vk.com/add_community_app?aid=7174819" class="btn btn-danger btn-block">Добавить приложение</a><br>
-					2) Нажмите на ЗЕЛЕНУЮ кнопку "дать доступ" и выберите последний пункт, а именно "Разрешить доступ к виджету приложения сообщества".<br>
-					<button id="button-perm" class="btn btn-success btn-block" type="button">Дать доступ</button><br>
-					3) Кникните на кнопку "Установить виджет" и нажмите в появившемся окне "Обновить виджет в сообществе".<br>
-					<button id="button-install" class="btn btn-warning btn-block" type="button">Установить виджет</button><br>
-				</div>
-				
-				После проделанных выше действий зайдите в "управление сообществом" своей группы и перейдите во вкладку "Настройки" => "Работа с API". 
-				Найдете там свеже созданный ключ с правами "виджет приложения сообщества", жмете кнопку "Показать" и отправляете полученный ключ создателю.<br>
-				Вот и всё.<br><br>
-				
-				Далее переходите в "Приложения", далее напротив "VimeNotify Widget" жмете кнопку "изменить" (если она есть) и выставляете вот такие настройки для корректного отображения.
-				<img class="img-fluid" src="https://i.imgur.com/N6bCzhK.png" />
-			</div>
-		</div>
-	</div>
-
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
-	<script src="https://vk.com/js/api/xd_connection.js?2"  type="text/javascript"></script>
-	
-	<script type="text/javascript">
-		function callback(event, className, e) {
-			showAlert(className, event, e);
-		}
-			
-		function setVKCallback(event, className) {
-			VK.addCallback(event, callback.bind(null, event, className));
-		}
-
-		function showAlert(className, header, text) {
-			$('#widget-notify').append(
-				'<div class="alert alert-dismissible alert-' + className + '" role="alert">' +
-					'<h4 class="alert-heading">' + header + '</h4>' +
-					text +
-					'<button type="button" class="close" data-dismiss="alert" aria-label="Закрыть">' +
-						'<span aria-hidden="true">&times;</span>' +
-					'</button>' +
-				'</div>'
-			);
-		}
-		
-		VK.init(function() {
-			
-			setVKCallback('onAppWidgetPreviewFail', 'warning');
-			setVKCallback('onAppWidgetPreviewCancel', 'info');
-			setVKCallback('onAppWidgetPreviewSuccess', 'success');
-			VK.addCallback('VKWebAppCommunityAccessTokenReceived', function f(data){
-				alert("token: " + data);
-			});
-			VK.addCallback('VKWebAppGetCommunityTokenFailed', function f(data){
-				alert("failed: " + data);
-			});			
-			$('#button-perm').on('click', function(){
-				VK.callMethod("VKWebAppGetCommunityToken", {"app_id": 7185518, "group_id": 157820075, "scope": "app_widget"});
-			});
-			
-			$('#button-install').on('click', function(){
-				//VK.callMethod("VKWebAppShowCommunityWidgetPreviewBox", "text", "return {};");
-				VK.callMethod("VKWebAppShowCommunityWidgetPreviewBox", {"group_id": 157820075, "type": "text", "code": "return {
-				    \"title\": \"Цитата\",
-				    \"text\": \"Текст цитаты\"
-				};"});				
-			});
-			console.log("init")
-
-		}, function() {
-			console.error('VK init error', arguments);
-		}, '5.80');
-	</script>
+<body style='text-align:center;padding-top:50px;' id='body'>
+  <a href="javascript:void(0)" id="set-permission">Создать ключ доступа к виждету сообщества</a>
+  <br>
+  <br>
+  <a href="javascript:void(0)" id="set-widget">Добавить виждет в сообщество</a>
 </body>
 </html>
